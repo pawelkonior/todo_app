@@ -39,3 +39,45 @@ useEffect(() => {
 }, [])
 
 ```
+
+## Dodawanie danych do aplikacji przez użytkownika
+
+1. UI, user interface, najlepiej używać znacznik form
+
+```jsx
+
+<form>
+    <div>
+        <label htmlFor="title">Title</label>
+        <input type="text" id="title" name="title"/>
+    </div>
+    <div>
+        <label htmlFor="desc">Description</label>
+        <textarea id="desc" name="desc"/>
+    </div>
+    <button>Add</button>
+</form>
+
+
+```
+
+2. Obsługa formularzy/inputów może być zrobiona na 3 podstawowe sposoby:
+   - controlled inputs (potrzebny stan i funkcja, która po wyemitowaniu zdarzenia go aktualizuje)
+   - uncontrolled inputs (obsługujemy dane dopiero jak użytkownik chce je wysłać)
+   - biblioteki -> Formik + Yup do walidacji
+
+3. Wysłać dane na serwer, po odpowiedzi serwera aktualizuje stan
+
+
+
+
+
+
+
+
+
+
+
+
+
+
