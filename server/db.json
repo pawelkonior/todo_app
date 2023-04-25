@@ -1,0 +1,17 @@
+{
+  "tasks": [
+    {
+      "error": false,
+      "id": 1,
+      "data": [
+        {
+          "id": 1,
+          "title": "Learn JS",
+          "description": "Really hard task",
+          "status": "open",
+          "addedDate": "2020-05-20T10:51:32.000Z"
+        }
+      ]
+    }
+  ]
+}
