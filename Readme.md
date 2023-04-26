@@ -69,6 +69,21 @@ useEffect(() => {
 3. Wysłać dane na serwer, po odpowiedzi serwera aktualizuje stan
 
 
+## Wyświetlanie danych w JSX
+
+```jsx
+
+// tablica -> const tasks = [{a: 1, b: 2}, {a: 23, b: 32}]
+
+// do wyświetlenia danych prawdopodobnie ze state (useState, this.state) używa się map metody tablicy. Ona przyjmuje funkcje
+// dla każdego elementu tablicy ją wykonuje, i to co zwróci będzie elementem, który się wyświetli, więc zazwyczaj zwraca JSX
+// należy pamiętać o props key, gdyż react używa go do wyliczania różnicy, którą musi zaaplikować pomiędzy virtual dom i real dom
+// key musi być unikalne i nie zmienialne, ale może być dowolnym prostym typem danych.
+{tasks.map((task) => (
+    <p key={task.a}>{task.b}</p>
+))}
+```
+
 
 
 
