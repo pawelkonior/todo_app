@@ -19,8 +19,23 @@ export async function sendDataAPI(data, endpoint) {
     return response.json()
 }
 
+export async function updateDataAPI(data, endpoint, id, method) {
+    const response = await fetch(
+        `http://localhost:3000/${endpoint}/${id}`,
+        {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method,
+            body: JSON.stringify(data)
+        }
+    )
 
-export async function deleteTaskAPI(id) {
-    const response = await fetch(`http://localhost:3000/tasks/${id}`, {method: 'DELETE'})
+    return response.json()
+}
+
+
+export async function deleteDataAPI(id, endpoint) {
+    const response = await fetch(`http://localhost:3000/${endpoint}/${id}`, {method: 'DELETE'})
     return response.json();
 }

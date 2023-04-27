@@ -10,11 +10,25 @@
   ],
   "operations": [
     {
-      "description": "important selector",
-      "timeSpent": 0,
-      "addedDate": "2023-04-27T07:32:25.638Z",
+      "description": "time?",
+      "timeSpent": 676,
+      "addedDate": "2023-04-27T08:07:07.652Z",
       "taskId": 1,
       "id": 1
+    },
+    {
+      "description": "scss",
+      "timeSpent": 14667,
+      "addedDate": "2023-04-27T08:18:51.941Z",
+      "taskId": 1,
+      "id": 2
+    },
+    {
+      "description": "less",
+      "timeSpent": 147,
+      "addedDate": "2023-04-27T08:18:57.090Z",
+      "taskId": 1,
+      "id": 3
     }
   ]
 }

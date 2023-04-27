@@ -1,13 +1,15 @@
 import './App.css'
 import {useEffect, useState} from "react";
-import {deleteTaskAPI, getDataAPI, sendDataAPI} from "./helpers/api.js";
+import {deleteDataAPI, getDataAPI, sendDataAPI} from "./helpers/api.js";
 import AddOperation from "./components/AddOperation.jsx";
+import AddTimeSpent from "./components/AddTimeSpent.jsx";
 
 function App() {
     const [tasks, setTasks] = useState([]);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [operationId, setOperationId] = useState(null);
+    const [timeSpentId, setTimeSpentId] = useState(null);
 
     useEffect(() => {
         const data = Promise.all([getDataAPI('tasks'), getDataAPI('operations')])
@@ -39,8 +41,18 @@ function App() {
 
     async function handleDeleteTask(event) {
         const id = +event.target.dataset.id
-        await deleteTaskAPI(id);
+        await deleteDataAPI(id, 'tasks');
         setTasks(tasks.filter((task) => task.id !== id));
+    }
+
+    async function handleDeleteOperation(id) {
+        await deleteDataAPI(id, 'operations');
+        setTasks(tasks.map((task) => {
+            return {
+                ...task,
+                operations: task.operations.filter((operation) => operation.id !== id)
+            }
+        }))
     }
 
     return (
@@ -92,7 +104,21 @@ function App() {
                         <div>
                             {task.operations && task.operations.map((operation) => (
                                 <div key={operation.id}>
-                                    <span>{operation.description}: </span><b>{operation.timeSpent}</b>
+                                    <span>{operation.description}: </span><b>{~~(operation.timeSpent / 60)}h {operation.timeSpent % 60}m</b>
+                                    {operation.id === timeSpentId ? (
+                                        <AddTimeSpent
+                                            setTasks={setTasks}
+                                            operationId={operation.id}
+                                            timeSpent={operation.timeSpent}
+                                            setTimeSpentId={setTimeSpentId}
+                                        />
+                                    ) : (
+                                        <button onClick={() => setTimeSpentId(operation.id)}>Add Spent Time</button>
+                                    )}
+                                    <button
+                                        onClick={() => handleDeleteOperation(operation.id)}
+                                    >Delete
+                                    </button>
                                 </div>
                             ))}
                         </div>
