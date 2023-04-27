@@ -11,7 +11,7 @@
 
 // AD.2 funkcja do pobierania danych z określonego adresu URL, async zawsze zwraca Promise,
 // więc musimy go obsłużyć jak promise czyli then/catch bądź await w async function
-async function getAllTasks() {
+async function getDataAPI() {
     const response = await fetch('http://localhost:3000/tasks');
     return response.json()
 }
@@ -33,7 +33,7 @@ const [task, setTask] = useState([]);
 // asynchroniczna (Promise based) to obsługujemy ją przez then/catch
 import {useEffect} from 'react';
 useEffect(() => {
-    getAllTasks()
+    getDataAPI()
         .then((data) => setTask(data))
         .catch(console.error)
 }, [])
@@ -82,6 +82,39 @@ useEffect(() => {
 {tasks.map((task) => (
     <p key={task.a}>{task.b}</p>
 ))}
+```
+
+
+## Pobieranie i scalanie danych z różnych endpointów
+
+```javascript
+
+useEffect(() => {
+    // metoda statyczna Promise.all() przyjmuje tablice Promises, następnie obsługuje je jednocześnie, czekając, aż ostatni się skończy,
+   // metoda all zwraca Promise, więc trzeba ją obsłużyć w adekwatny sposób: await lub then
+   const data = Promise.all([getDataAPI('tasks'), getDataAPI('operations')])
+
+   data
+           .then((results) => {
+               // ta funkcja wykonuje się, kiedy wszystkie promisy zostały skończone, result posiada w sobie tablicę, w której są wyniki wszystkich
+              // promisów z promise.all, w tej samej kolejności jak zostały podane, dlatego poniżej można użyć array destructring
+              const [taskData, operationData] = results;
+              
+              // Aby połączyć 2 tablice z danymi, można przemapować jedną z nich, dodająć elementy drugiej do elementów pierwszej
+              const tasks = taskData.map((task) => ({
+                 // dla każdego elementu tablicy taskData, tworze nowy obiekt, gdzie za pomocą spread operator wstawiam wszystkie elementy
+                 ...task,
+                 // dokładam do nowego obiektu klucz operations, a jego wartość wyliczam przez przefiltrowanie wyników z drugiej tablicy
+                 operations: operationData.filter((operation) => operation.taskId === task.id)
+              }))
+
+              // aktualizuje stan tasks
+              setTasks(tasks);
+           })
+           .catch(console.error)
+
+}, [])
+
 ```
 
 
