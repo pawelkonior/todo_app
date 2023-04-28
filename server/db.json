@@ -1,20 +1,27 @@
 {
-    "tasks": [
-        {
-            "title": "redux toolkit",
-            "description": "amazing state management library",
-            "status": "open",
-            "addedDate": "2023-04-28T07:34:51.062Z",
-            "id": 3
-        }
-    ],
-    "operations": [
-        {
-            "description": "redux saga",
-            "timeSpent": 12,
-            "addedDate": "2023-04-28T07:35:21.421Z",
-            "taskId": 3,
-            "id": 5
-        }
-    ]
+  "tasks": [
+    {
+      "title": "redux toolkit",
+      "description": "amazing state management library",
+      "status": "open",
+      "addedDate": "2023-04-28T07:34:51.062Z",
+      "id": 3
+    },
+    {
+      "title": "Learn Mui",
+      "description": "The easiest way to build amazing apps",
+      "status": "open",
+      "addedDate": "2023-04-28T08:30:49.660Z",
+      "id": 4
+    }
+  ],
+  "operations": [
+    {
+      "description": "redux saga",
+      "timeSpent": 12,
+      "addedDate": "2023-04-28T07:35:21.421Z",
+      "taskId": 3,
+      "id": 5
+    }
+  ]
 }

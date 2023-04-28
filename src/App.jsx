@@ -1,5 +1,4 @@
-import "./App.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     deleteDataAPI,
     getDataAPI,
@@ -8,6 +7,7 @@ import {
 } from "./helpers/api.js";
 import AddOperation from "./components/AddOperation.jsx";
 import AddTimeSpent from "./components/AddTimeSpent.jsx";
+import { Button, Container, Stack, TextField } from "@mui/material";
 
 function App() {
     const [tasks, setTasks] = useState([]);
@@ -99,28 +99,32 @@ function App() {
     }
 
     return (
-        <>
+        <Container maxWidth="md">
+            <h1>Todo App</h1>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="title">Title</label>
-                    <input
+                <Stack spacing={2} direction="column">
+                    <TextField
+                        label="Title"
+                        variant="outlined"
                         value={title}
                         type="text"
                         id="title"
                         name="title"
                         onChange={(event) => setTitle(event.target.value)}
                     />
-                </div>
-                <div>
-                    <label htmlFor="desc">Description</label>
-                    <textarea
+                    <TextField
+                        label="Description"
+                        variant="outlined"
                         value={description}
                         id="desc"
                         name="desc"
                         onChange={(event) => setDescription(event.target.value)}
                     />
-                </div>
-                <button type="submit">Add</button>
+
+                    <Button variant="contained" type="submit">
+                        Add
+                    </Button>
+                </Stack>
             </form>
             <br />
 
@@ -205,7 +209,7 @@ function App() {
                     </div>
                 ))}
             </section>
-        </>
+        </Container>
     );
 }
 
