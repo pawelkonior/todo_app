@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
     deleteDataAPI,
     getDataAPI,
@@ -7,7 +7,24 @@ import {
 } from "./helpers/api.js";
 import AddOperation from "./components/AddOperation.jsx";
 import AddTimeSpent from "./components/AddTimeSpent.jsx";
-import { Button, Container, Stack, TextField } from "@mui/material";
+import {
+    Badge,
+    Button,
+    ButtonGroup,
+    Chip,
+    Collapse,
+    Container,
+    List,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    Stack,
+    TextField,
+} from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
 
 function App() {
     const [tasks, setTasks] = useState([]);
@@ -126,89 +143,141 @@ function App() {
                     </Button>
                 </Stack>
             </form>
-            <br />
 
-            <section>
+            <Grid container spacing={2} gap={2} style={{ marginTop: "20px" }}>
                 {tasks.map((task) => (
-                    <div key={task.id}>
-                        <b>{task.title}</b> - <span>{task.description}</span>
-                        {operationId === task.id ? (
-                            <AddOperation
-                                setOperationId={setOperationId}
-                                taskId={task.id}
-                                setTasks={setTasks}
-                            />
-                        ) : (
-                            <>
-                                {task.status === "open" && (
-                                    <button
-                                        onClick={() => setOperationId(task.id)}
+                    <Grid xs={12} key={task.id}>
+                        <List
+                            sx={{
+                                width: "100%",
+                                bgcolor: "background.paper",
+                            }}
+                            component="nav"
+                            aria-labelledby="nested-list-subheader"
+                        >
+                            <ListItemButton onClick={() => {}}>
+                                <ListItemIcon>
+                                    <InboxIcon />
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary={task.title}
+                                    secondary={task.description}
+                                />
+                                <ButtonGroup
+                                    variant="contained"
+                                    aria-label="outlined primary button group"
+                                >
+                                    {operationId === task.id ? (
+                                        <AddOperation
+                                            setOperationId={setOperationId}
+                                            taskId={task.id}
+                                            setTasks={setTasks}
+                                        />
+                                    ) : (
+                                        <>
+                                            {task.status === "open" && (
+                                                <button
+                                                    onClick={() =>
+                                                        setOperationId(task.id)
+                                                    }
+                                                >
+                                                    Add operation
+                                                </button>
+                                            )}
+                                        </>
+                                    )}
+                                    {task.status === "open" && (
+                                        <Button
+                                            onClick={handleFinishTask(task.id)}
+                                        >
+                                            Finish
+                                        </Button>
+                                    )}
+                                    <Button
+                                        onClick={handleDeleteTask}
+                                        data-id={task.id}
                                     >
-                                        Add operation
-                                    </button>
-                                )}
-                            </>
-                        )}
-                        {task.status === "open" && (
-                            <button onClick={handleFinishTask(task.id)}>
-                                Finish
-                            </button>
-                        )}
-                        <button onClick={handleDeleteTask} data-id={task.id}>
-                            Delete
-                        </button>
-                        <div>
-                            {task.operations &&
-                                task.operations.map((operation) => (
-                                    <div key={operation.id}>
-                                        <span>{operation.description}: </span>
-                                        {operation.timeSpent !== 0 && (
-                                            <b>
-                                                {~~(operation.timeSpent / 60)}h{" "}
-                                                {operation.timeSpent % 60}m
-                                            </b>
-                                        )}
-
-                                        {operation.id === timeSpentId ? (
-                                            <AddTimeSpent
-                                                setTasks={setTasks}
-                                                operationId={operation.id}
-                                                timeSpent={operation.timeSpent}
-                                                setTimeSpentId={setTimeSpentId}
+                                        Delete
+                                    </Button>
+                                </ButtonGroup>
+                                {true ? <ExpandLess /> : <ExpandMore />}
+                            </ListItemButton>
+                            <Collapse in={true} timeout="auto" unmountOnExit>
+                                {task.operations &&
+                                    task.operations.map((operation) => (
+                                        <List
+                                            component="div"
+                                            disablePadding
+                                            key={operation.id}
+                                        >
+                                            <ListItemText
+                                                primary={operation.description}
                                             />
-                                        ) : (
-                                            <>
+
+                                            {operation.timeSpent !== 0 && (
+                                                <Chip
+                                                    color="secondary"
+                                                    label={`${~~(
+                                                        operation.timeSpent / 60
+                                                    )}h ${
+                                                        operation.timeSpent % 60
+                                                    }m`}
+                                                />
+                                            )}
+                                            <ButtonGroup
+                                                variant="contained"
+                                                aria-label="outlined primary button group"
+                                            >
+                                                {operation.id ===
+                                                timeSpentId ? (
+                                                    <AddTimeSpent
+                                                        setTasks={setTasks}
+                                                        operationId={
+                                                            operation.id
+                                                        }
+                                                        timeSpent={
+                                                            operation.timeSpent
+                                                        }
+                                                        setTimeSpentId={
+                                                            setTimeSpentId
+                                                        }
+                                                    />
+                                                ) : (
+                                                    <>
+                                                        {task.status ===
+                                                            "open" && (
+                                                            <Button
+                                                                onClick={() =>
+                                                                    setTimeSpentId(
+                                                                        operation.id
+                                                                    )
+                                                                }
+                                                            >
+                                                                Add Spent Time
+                                                            </Button>
+                                                        )}
+                                                    </>
+                                                )}
+
                                                 {task.status === "open" && (
-                                                    <button
+                                                    <Button
                                                         onClick={() =>
-                                                            setTimeSpentId(
+                                                            handleDeleteOperation(
                                                                 operation.id
                                                             )
                                                         }
                                                     >
-                                                        Add Spent Time
-                                                    </button>
+                                                        Delete
+                                                    </Button>
                                                 )}
-                                            </>
-                                        )}
-
-                                        {task.status === "open" && (
-                                            <button
-                                                onClick={() =>
-                                                    handleDeleteOperation(
-                                                        operation.id
-                                                    )
-                                                }
-                                            >
-                                                Delete
-                                            </button>
-                                        )}
-                                    </div>
-                                ))}
-                        </div>
-                    </div>
+                                            </ButtonGroup>
+                                        </List>
+                                    ))}
+                            </Collapse>
+                        </List>
+                    </Grid>
                 ))}
-            </section>
+            </Grid>
         </Container>
     );
 }

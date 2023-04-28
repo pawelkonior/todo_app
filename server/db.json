@@ -3,7 +3,7 @@
     {
       "title": "redux toolkit",
       "description": "amazing state management library",
-      "status": "open",
+      "status": "closed",
       "addedDate": "2023-04-28T07:34:51.062Z",
       "id": 3
     },
@@ -22,6 +22,13 @@
       "addedDate": "2023-04-28T07:35:21.421Z",
       "taskId": 3,
       "id": 5
+    },
+    {
+      "description": "nice design",
+      "timeSpent": 44,
+      "addedDate": "2023-04-28T08:59:01.353Z",
+      "taskId": 4,
+      "id": 6
     }
   ]
 }
