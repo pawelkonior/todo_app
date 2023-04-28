@@ -1,34 +1,20 @@
 {
   "tasks": [
     {
-      "title": "css",
-      "description": "not selector",
+      "title": "redux toolkit",
+      "description": "amazing state management library",
       "status": "open",
-      "addedDate": "2023-04-27T07:32:06.290Z",
-      "id": 1
+      "addedDate": "2023-04-28T07:34:51.062Z",
+      "id": 3
     }
   ],
   "operations": [
     {
-      "description": "time?",
-      "timeSpent": 676,
-      "addedDate": "2023-04-27T08:07:07.652Z",
-      "taskId": 1,
-      "id": 1
-    },
-    {
-      "description": "scss",
-      "timeSpent": 14667,
-      "addedDate": "2023-04-27T08:18:51.941Z",
-      "taskId": 1,
-      "id": 2
-    },
-    {
-      "description": "less",
-      "timeSpent": 147,
-      "addedDate": "2023-04-27T08:18:57.090Z",
-      "taskId": 1,
-      "id": 3
+      "description": "redux saga",
+      "timeSpent": 12,
+      "addedDate": "2023-04-28T07:35:21.421Z",
+      "taskId": 3,
+      "id": 5
     }
   ]
 }
